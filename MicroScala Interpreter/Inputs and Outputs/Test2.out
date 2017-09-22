@@ -1,0 +1,53 @@
+Source Program
+--------------
+
+
+object Test2
+{
+  def main (args : Array [String]) {
+    var my_list : List [Int] = Nil;
+    var my_list_tl : List [Int] = Nil;
+    var r : Int = 0;
+    var h : Int = 0;
+    r = 2;
+    while (r < 5)
+    {  
+      my_list = r :: my_list;
+      r = r + 1;
+    }  
+    h = my_list . head;
+    my_list_tl = my_list . tail;
+    println (h);
+    println (my_list_tl . head);
+  }
+}
+
+The output of the Interpreter is: 
+4
+3
+
+
+PARSE SUCCESSFUL
+
+
+
+Identifier Table for Global Environment
+---------------------------------------
+
+Id   Category
+--   --------
+main procedure
+
+Syntax Tree for main
+--------------------
+(: (: (: (: (: (= (id r) (intValue 2)) (while (< (id r) (intValue 5)) (: (= (id my_list) (:: (id r) (id my_list))) (= (id r) (+ (id r) (intValue 1)))))) (= (id h) (head (id my_list)))) (= (id my_list_tl) (tail (id my_list)))) (println (id h))) (println (head (id my_list_tl))))
+
+Identifier Table for main
+-------------------------
+
+Id         Category
+--         --------
+h          int(4)
+my_list    list([4, 3, 2])
+my_list_tl list([3])
+r          int(5)

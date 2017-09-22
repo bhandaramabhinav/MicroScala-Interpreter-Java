@@ -1,0 +1,64 @@
+Source Program
+--------------
+
+object Test3
+{
+  var h : Int = 0;  
+  def area (x : Int, y : Int) : Int =
+  {
+     var z : Int = 0;
+     z = 2 * (x * y + (x * h) + y * h);
+     return z;
+  }
+
+  def main (args : Array [String]) {
+    var a : Int = 0; 
+    var b : Int = 0; 
+    var s : Int = 0;
+    a = 3; b = 4;
+    h = 5;
+    s = area (a, b);
+    println (s);
+  }
+}
+
+The output of the Interpreter is: 
+94
+
+
+PARSE SUCCESSFUL
+
+
+
+Identifier Table for Global Environment
+---------------------------------------
+
+Id   Category
+--   --------
+area procedure
+h    int(5)
+main procedure
+
+Syntax Tree for area
+--------------------
+(: (= (id z) (* (intValue 2) (+ (+ (* (id x) (id y)) (* (id x) (id h))) (* (id y) (id h))))) (return (id z)))
+
+Identifier Table for area
+-------------------------
+
+Id Category
+-- --------
+z  int(0)
+
+Syntax Tree for main
+--------------------
+(: (: (: (: (= (id a) (intValue 3)) (= (id b) (intValue 4))) (= (id h) (intValue 5))) (= (id s) (apply area [(id a), (id b)]))) (println (id s)))
+
+Identifier Table for main
+-------------------------
+
+Id Category
+-- --------
+a  int(3)
+b  int(4)
+s  int(94)

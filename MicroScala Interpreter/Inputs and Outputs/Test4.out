@@ -1,0 +1,64 @@
+Source Program
+--------------
+
+
+object Test4
+{
+  def facto (x : Int) : Int =
+  {
+    var s : Int = 0;
+    if (x == 1)
+      s = 1;
+    else
+      s = x * facto (x - 1);
+    return s;
+  }
+
+  def main (args : Array [String])
+  {
+    var i : Int = 0;
+    var fac : Int = 0;
+    i = 4;
+    fac = facto (i);
+    println (fac);
+  }
+}
+
+The output of the Interpreter is: 
+24
+
+
+PARSE SUCCESSFUL
+
+
+
+Identifier Table for Global Environment
+---------------------------------------
+
+Id    Category
+--    --------
+facto procedure
+main  procedure
+
+Syntax Tree for facto
+---------------------
+(: (if (== (id x) (intValue 1)) (= (id s) (intValue 1)) (= (id s) (* (id x) (apply facto [(- (id x) (intValue 1))])))) (return (id s)))
+
+Identifier Table for facto
+--------------------------
+
+Id Category
+-- --------
+s  int(0)
+
+Syntax Tree for main
+--------------------
+(: (: (= (id i) (intValue 4)) (= (id fac) (apply facto [(id i)]))) (println (id fac)))
+
+Identifier Table for main
+-------------------------
+
+Id  Category
+--  --------
+fac int(24)
+i   int(4)

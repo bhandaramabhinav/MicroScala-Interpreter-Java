@@ -1,0 +1,123 @@
+Source Program
+--------------
+
+
+object Test6 {
+
+  def cons_a_list (r : Int, l : List [Int]) : List [Int] =
+  {
+    var my_list : List [Int] = Nil;
+    if (r != 0) {
+      my_list = r :: my_list;
+      my_list = cons_a_list (r - 1, my_list);
+    }
+    return my_list;
+  }
+
+  def equal (list1 : List [Int], list2 : List [Int]) : Int =
+  {
+    var l1 : List [Int] = Nil;
+    var l2 : List [Int] = Nil;
+    var my_flag : Int = 0;
+    l1 = list1; l2 = list2;
+    while (!l1 . isEmpty && !l2 . isEmpty && my_flag == 0) {
+      if (l1 .head != l2 .head)
+        my_flag=1;
+      else {
+        l1 = l1 . tail;
+        l2 = l2 . tail;
+        my_flag = equal (l1, l2);
+      }
+    }
+    if (l1 . isEmpty && l2 . isEmpty)
+      my_flag = 0;
+    else
+      my_flag = 1;
+    return my_flag;
+  }
+
+  def main (args : Array [String])
+  {
+    var r : Int = 0; 
+    var h : Int = 0;
+    var l1 : List [Int] = Nil; 
+    var l2 : List [Int] = Nil; 
+    var l3 : List [Int] = Nil;
+    var my_list : List [Int] = Nil;
+    r = 10;
+    l1 = cons_a_list (r, my_list);    
+    l2 = cons_a_list (r, my_list);  
+    r = r - 1;  
+    l3 = cons_a_list (r, my_list);  
+    if (equal (l1, l2) == 0)
+      h = 1; 
+    else 
+      h = 0;
+    if (equal (l1, l3) != 0) 
+      r = 1;
+    else 
+      r = 0;
+
+    println (h);
+    println (r);
+  }
+
+}
+
+The output of the Interpreter is: 
+1
+0
+
+
+PARSE SUCCESSFUL
+
+
+
+Identifier Table for Global Environment
+---------------------------------------
+
+Id          Category
+--          --------
+cons_a_list procedure
+equal       procedure
+main        procedure
+
+Syntax Tree for cons_a_list
+---------------------------
+(: (if (!= (id r) (intValue 0)) (: (= (id my_list) (:: (id r) (id my_list))) (= (id my_list) (apply cons_a_list [(- (id r) (intValue 1)), (id my_list)])))) (return (id my_list)))
+
+Identifier Table for cons_a_list
+--------------------------------
+
+Id      Category
+--      --------
+my_list list([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+Syntax Tree for equal
+---------------------
+(: (: (: (: (= (id l1) (id list1)) (= (id l2) (id list2))) (while (&& (&& (! (isempty (id l1))) (! (isempty (id l2)))) (== (id my_flag) (intValue 0))) (if (!= (head (id l1)) (head (id l2))) (= (id my_flag) (intValue 1)) (: (: (= (id l1) (tail (id l1))) (= (id l2) (tail (id l2)))) (= (id my_flag) (apply equal [(id l1), (id l2)])))))) (if (&& (isempty (id l1)) (isempty (id l2))) (= (id my_flag) (intValue 0)) (= (id my_flag) (intValue 1)))) (return (id my_flag)))
+
+Identifier Table for equal
+--------------------------
+
+Id      Category
+--      --------
+l1      list([])
+l2      list([])
+my_flag int(0)
+
+Syntax Tree for main
+--------------------
+(: (: (: (: (: (: (: (: (= (id r) (intValue 10)) (= (id l1) (apply cons_a_list [(id r), (id my_list)]))) (= (id l2) (apply cons_a_list [(id r), (id my_list)]))) (= (id r) (- (id r) (intValue 1)))) (= (id l3) (apply cons_a_list [(id r), (id my_list)]))) (if (== (apply equal [(id l1), (id l2)]) (intValue 0)) (= (id h) (intValue 1)) (= (id h) (intValue 0)))) (if (!= (apply equal [(id l1), (id l3)]) (intValue 0)) (= (id r) (intValue 1)) (= (id r) (intValue 0)))) (println (id h))) (println (id r)))
+
+Identifier Table for main
+-------------------------
+
+Id      Category
+--      --------
+h       int(1)
+l1      list([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+l2      list([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+l3      list([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+my_list list([])
+r       int(0)
